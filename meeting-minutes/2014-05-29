@@ -1,0 +1,45 @@
+05/29/2014 Meeting minutes:
+Attendee: Lianhao Lu, Guangya (Jay), Shane Wang, Jiangying(Jenny), Jeremy Liu, Lili Liu
+Agenda
+
+    Atlanta summit summary related to this topic(Jay Lau?)
+
+    Did not present because no time.
+
+    https://etherpad.openstack.org/p/juno-nova-hypervisor-power-mgmt this bp was also rejected because most people think this not belong to nova, perhaps we can treated this as a plug-in of this project
+
+    design review https://docs.google.com/document/d/1DMsnGxQ3P-OwZCF3uxaUeEFaKX8LqUqmmgQ_7EVK7Y8/edit#
+
+      - Gokul and IBM guys are looking at Congress, mainly on the policy language part
+
+      - need to review all the comments <<< Delayed because of time
+
+    Huawei's design (Jeremy)
+
+       - may be we need to add something like "selector" into the policy definition, e.g. for all VM's cpu consumption >90%
+
+    any conflict issues with intel's thought https://wiki.openstack.org/wiki/File:Re-scheduler-component.PNG
+
+    Need more comments for how to define the "policy file?"?? More flexible to handle more cases, such as select target host for live migration etc.
+
+Resource Plan
+
+    Intel: Liaohao & Yongli (both at most 50%), 
+
+    IBM: Guangya (30%) Gokul (???)
+
+    Huawei: Lili Liu (50%), Jenny(30%), Jeremy(adjustable, 50%)
+
+Action Plan
+
+    Policy Language: Need more  comments for how to define the "Policy File?"?? More flexible to handle  more cases, such as select target host for live migration etc. (All)
+
+    Go through all comments in google doc (All)
+
+    Update all comments on google doc (Guangya)
+
+    Huawei set up meeting (Liu Ji)
+
+Time Scheduled:
+
+    6.12 (14:00 - 15:00) 

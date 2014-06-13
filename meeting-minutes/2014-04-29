@@ -1,0 +1,103 @@
+First meeting: 04/29/2014
+Relavant session/bp:
+    http://summit.openstack.org/cfp/details/262 (merged into http://summit.openstack.org/cfp/details/140)
+    https://blueprints.launchpad.net/nova/+spec/resource-optimization-service
+Some discussion on openstack dev list
+http://markmail.org/message/5zotly4qktaf34ei
+Related project (Did not maintain for a  long time):
+    http://openstack-neat.org/
+TODO:
+    Can we get some idea for the architecture from Climate?
+Agenda:
+    1. Introduction of both side's interest and current status
+    [Guangya] I'm now working on a draft document
+ 
+    2. current related works in OpenStack, do we need a separate project/service?
+        - solver scheduler?
+        - gantt
+        - ceilometer
+    [Guangya] Seems most people perfer a new project
+    [jiangying] gantt now just made a synced-up copy of nova scheduler. IMHO, we may add it into Gantt, or seperate it from nova scheduler.
+ 
+     3. What's the scope of the new service(if we need one)?
+ [Guangya] provide framework to quickly implement and enforce different kinds of policies. Policies can be different types. Here are a few examples of policies in clouds:
+?    Availability Policies
+o    An example of availability policy can be to migrate VMs off a node when there is a prediction that a node might be going down OR to simply restart all the VMs on another node if a node crashes
+?    Energy Policies
+o    Example: turn off/on the nodes on the system based on the load to minimize total energy consumption. If the system is under heavy load, power on more node and migrate/distribute VMs more evenly to powercap each node. If the system is being underutilized (cpu utilization on all nodes is low), then migrate the VMs together to ¡°pack¡± them and then turn off some hypervisors.
+?    Performance Policies
+o    Example: When the node utilization becomes close to 100%, move some VMs to other nodes and increase the VCPU to have a larger fraction of PCPU so that the application may benefit with more CPU and run faster
+?    Load balancing Policy
+o    Example: some of the CPUs are experiencing high utilization while others are experiencing low utilization ¨C move VMs across nodes to balance the overall CPU utilization in the system
+The goal of the policy automation is to provide a framework so that one can enforce such policies by expressing them in a simplistic manner. In essence, each policy is expressed in form of a combination of CONDITIONS which trigger certain ACTIONS that need to be taken. The logic to trigger these actions can be expressed as RULES or ALGORITHMS (such as for resource optimization). So, this project will provide a framework that can be used by cloud administrators to express their desired policies in a simple human readable manner without worrying about the complexity of underlying operations.
+     4. Questions:
+     [Shane Wang]: Should we save data in resource-optimization-service?
+     Suggest to get data from Ceilometer instead of Nova.
+     Ceilometer has physical data but is not enabled by default.
+     
+     Users might need to create different policies, so we need a uniform format.
+     Probably suggest to create an abstract layer to meet all requirements.
+     database might be required, able to use memcached.
+     Hope to define some policies as nova filters.
+     Also allow users to define their own customized policies.
+     - How to define the policy? What if look like?
+     [Guangya] Conditon, Action, Policy (Condition+Action)
+[yongli]policy:
+object: VM, network, storage, host
+condition: vm fails,  usage high water mark  [index the data freeway]
+action : recreate, restart, migration
+data-anylizer(evaluation?): index all data > condition
+     - How to break the policy into QoS paramters?
+     - How to map the QoS paramters to the monitoring metrics we can get from OpenStack?
+     - Do we need to store the monitoring metrics by our own?
+     [Guangya] IMHO, we do not need to store the metircs but get those metrics from ceilimeter, nova, cinder etc.
+     [ yonglihe]  might need : 
+
+    1) some project no historical data.
+
+    2) not uniform : converter
+
+    3) can not index the data flexablile: like instance index, host index, filed index(net, storage, compute...):
+
+    ceilimeter extended to every scope of OS. already had storage.
+
+    4) need memory cache:  the cached data might be proceesed and generate some result.
+
+     [ jiangying] Agree with yonglihe. We need to store the metrics as the historical data.
+     - what kind of evaluation logic? any requirement for that(scale-out, etc.)?
+     [Guangya] Scale out should be handled by heat?
+
+    might be need:  1) big data
+
+                                  2) multi policy
+
+    3) mulit evaluation
+
+    central agent: TOOZ
+
+     [jiangying] Does Guangya mean autoscaling? Or else, heat-core may not accept the things describing workflow. 
+                      might need: 1)scale
+                      2) performance
+                      3) flexibility
+     - what kind of actions do we need support?
+     - Do we want to support user-self-defined policy?
+     [Guangya] I think the framework should support this just like nova scheduler filters
+     user write the python code .... ().
+     - Do we want to support user-self-defined action?
+     [Guangya] I think so
+     5. Any other existing opensource project we can leverage?
+Peoples/Contacts:
+Guangya Liu(Jay Lau <liugya@cn.ibm.com> <jay.lau.513@gmail.com>)      IRC: jay-lau-513
+Lianhao Lu (lianhao.lu@intel.com)                               IRC: llu, llu-laptop
+Shane Wang (shane.wang@intel.com)                       IRC: shane-wang
+Yongli He (yongli.he@intel.com)                                   IRC:heyongli
+Compare:
+     1. Congress -- Focused on Compliance [ is that correct? ] (Boolean constraints and logic) 
+
+     network broken: anylisis,  recovery and recreate or .... (fix me).
+
+     2. Runtime-Policies -- <Jay's mail> -- Focused on Runtime policies for Load Balancing, Availability, Energy, etc. (sequences of actions, rules, algorithms)  
+     3. SolverScheduler -- Focused on Placement [ static or runtime ] and will be invoked by the (above) policy engines  
+     4. Gantt - Focused on (Holistic) Scheduling  
+     5. Neat -- seems to be a special case of Runtime-Policies  (policies based on Load)  : based on p.hd. patent.
+
