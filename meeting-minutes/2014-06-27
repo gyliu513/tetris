@@ -1,0 +1,20 @@
+Meeting Minutes for this meeting (Friday, June 27, 2014, 01:00 UTC)
+    Attendees
+        IBM: Guang Ya (Jay), Gokul, Kudva
+        Intel: Lian Hao
+        Hua Wei: Jiang Ying(Jenny), Liu Ji
+    Agenda
+        Go through Lianhao's update
+        Discuss Congress
+            Not clear about the differentiation about Congress and Tetris
+            Something like resource optimization is not in the scope of congress
+            Generic condition-action policies are supported by Congress through datalog support. There is an open problem or reliability analysis and enforcement that is open, similarly as Gokul mentioned for efficiently
+        PDP and PIP (http://www.ietf.org/rfc/rfc3198.txt), those concept seems mainly handling some network policy.
+
+Agenda for next meeting (Friday, July 11, 2014, 01:00 UTC)
+
+    Some example python code for how to use the policy YAML file(Lianhao)
+    Gokul and Kudva will look into congress in more detail and compare and contrast with tetris in the next week (Perhaps all)
+    Put the meeting minutes on wiki page (Jay)
+    Contact with Congress guys for more detail (Gokul, Jay, Lian Hao)
+
