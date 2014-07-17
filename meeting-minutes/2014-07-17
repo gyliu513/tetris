@@ -1,0 +1,25 @@
+07/16/2014 Meeting Minutes:
+Attendee:
+IRC Channel:
+        tetris
+
+Agenda:
+    1) Review Last Week's Action
+    2) Some example python code for how to use the policy YAML file(Lianhao): Done
+    3) gokul and kudva will look into congress in more detail and compare and contrast with tetris in the next week (Perhaps all) ??
+    4) Put the meeting minutes on wiki page (Jay) Done https://wiki.openstack.org/wiki/Meetings/Tetris#Agenda_for_next_meeting_.28Friday.2C_July_17.2C_2014.2C_02:00_UTC.29
+    5) Contact with Congress guys for more detail (Gokul, Kudva, Jay, Lian Hao)
+    6) How to collaborate with Congress (Merged to Congress)
+
+Action Plan:
+    1) Set up environment: Ask Kudva (All)
+    2) Get familiar with code check How to merge to congress (All)
+    3) How to define Policy Action? Only see rules (All)
+    4) dse data service engine (Guang Ya)
+    5) Policy (Lian Hao)
+    6) server & API (Hua Wei)
+    7) Congress Progress (Guang Ya On Demand)
+
+Time Scheduled:
+    10:00-11:30 Jul 31 (China Time) 22:00-23:30 Jul 30 (US Time)
+    Huawei will setup the meeting
